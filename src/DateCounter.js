@@ -1,7 +1,7 @@
 import { useReducer } from "react";
 
 const initialState = { count: 0, step: 1 };
-function reducer(state, action) {
+function reducerMtd(state, action) {
   console.log(state, action);
   // switch (action.type) {
   //   case "inc":
@@ -33,7 +33,7 @@ function reducer(state, action) {
 function DateCounter() {
   // const [count, setCount] = useState(0);
 
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducerMtd, initialState);
   const { count, step } = state;
 
   // This mutates the date object.
