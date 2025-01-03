@@ -3,6 +3,7 @@ import Loader from "./Loader";
 import Main from "./Main";
 import Error from "./Error";
 import StartScreen from "./StartScreen";
+import Question from "./Question";
 import { useEffect, useReducer } from "react";
 
 const initialState = {
@@ -24,6 +25,8 @@ function reducer(state, action) {
       return { ...state, status: "ready", questions: action.payload };
     case "dataFailed":
       return { ...state, status: "error" };
+    case "start":
+      return { ...state, status: "active" };
     default:
       return new Error("Invalid action type");
   }
@@ -38,6 +41,7 @@ export default function App() {
       .then((data) => dispatch({ type: "dataRecieved", payload: data }))
       .catch((error) => dispatch({ type: "dataFailed" }));
   }, []);
+
   return (
     <div className="app">
       <Header />
@@ -45,8 +49,10 @@ export default function App() {
         {status === "loading" && <Loader />}
         {status === "error" && <Error />}
         {status === "ready" && (
-          <StartScreen numberQuestions={numberQuestions} />
+          <StartScreen numberQuestions={numberQuestions} dispatch={dispatch} />
         )}
+
+        {status === "active" && <Question />}
       </Main>
     </div>
   );
