@@ -34,6 +34,13 @@ function reducer(state, action) {
       return { ...state, status: "error" };
     case "start":
       return { ...state, status: "active" };
+    case "restart":
+      return {
+        ...initialState,
+        questions: state.questions,
+        status: "ready",
+        highscore: state.highscore,
+      };
     case "newAnswer":
       const currentQuestion = state.questions[state.index];
       return {
@@ -114,6 +121,7 @@ export default function App() {
             points={points}
             maxPossiblePoints={maxPoints}
             highscore={highscore}
+            dispatch={dispatch}
           />
         )}
       </Main>
