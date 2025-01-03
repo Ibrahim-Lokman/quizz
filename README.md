@@ -8,6 +8,8 @@ In the project directory, you can run:
 
 ### `npm run server`
 
+Starts the backend server for handling API requests.
+
 ### `npm start`
 
 Runs the app in the development mode.\
