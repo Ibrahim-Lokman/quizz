@@ -7,6 +7,7 @@ import Question from "./Question";
 import NextButton from "./NextButton";
 import ProgressBar from "./Progress";
 import { useEffect, useReducer } from "react";
+import FinishScreen from "./FinishScreen";
 
 const initialState = {
   questions: [],
@@ -47,6 +48,11 @@ function reducer(state, action) {
         ...state,
         index: state.index + 1,
         answer: null,
+      };
+    case "finish":
+      return {
+        ...state,
+        status: "finished",
       };
     default:
       return new Error("Invalid action type");
@@ -94,8 +100,16 @@ export default function App() {
               dispatch={dispatch}
               answer={answer}
             />
-            <NextButton dispatch={dispatch} answer={answer} />
+            <NextButton
+              dispatch={dispatch}
+              answer={answer}
+              numberQuestions={numberQuestions}
+              index={index}
+            />
           </>
+        )}
+        {status === "finished" && (
+          <FinishScreen points={points} maxPossiblePoints={maxPoints} />
         )}
       </Main>
     </div>
